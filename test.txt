@@ -96,7 +96,7 @@
         ])
         return model
 
-    def train_model(optimizer_name, X, y, epochs=1000, lr=0.1):
+    def train_model(optimizer_name, X, y, epochs=5000, lr=0.1):
         model = create_model()
 
         if optimizer_name == 'SGD':
@@ -215,7 +215,7 @@
     history=model.fit(
         x_train,
         y_train,
-        epochs=1,
+        epochs=5,
         batch_size=64,
         validation_split=0.2
     )
@@ -434,7 +434,7 @@
     ])
 
     autoencoder.compile(optimizer='adam', loss='binary_crossentropy')
-    autoencoder.fit(x_train_noisy, x_train, epochs=1, batch_size=256, validation_data=(x_test_noisy, x_test))
+    autoencoder.fit(x_train_noisy, x_train, epochs=5, batch_size=256, validation_data=(x_test_noisy, x_test))
 
     decoded = autoencoder.predict(x_test_noisy)
 
@@ -498,7 +498,7 @@
     gan = tf.keras.Model(gan_input, gan_output)
     gan.compile(loss="binary_crossentropy", optimizer="adam")
 
-    epochs = 10
+    epochs = 5000
 
     for step in range(epochs):
         noise = np.random.normal(0, 1, (batch_size, 100))
