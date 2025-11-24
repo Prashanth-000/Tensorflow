@@ -1,5 +1,5 @@
 
-
+--------------------------------------------------------------------------------------------------------------
     # program_1
 
     from re import VERBOSE
@@ -33,13 +33,7 @@
     for i, prediction in enumerate(predictions):
       print(f"input {x[i]} predicted {prediction[0]} : actual {y[i]}")
 
-    1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 158ms/step - accuracy: 1.0000 - loss: 9.9109e-05
-    Accuracy:100.0 %
-    1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 58ms/step
-    input [0 0] predicted 0 : actual 0
-    input [0 1] predicted 1 : actual 1
-    input [1 0] predicted 1 : actual 1
-    input [1 1] predicted 0 : actual 0
+-----------------------------------------------------------------------------------------------------------------------------
 
     # program_2
     import tensorflow as tf
@@ -82,6 +76,8 @@
     early = keras.callbacks.EarlyStopping(monitor='val_loss', patience=5, restore_best_weights=True)
 
     history = model.fit(train_gen, validation_data=val_gen, epochs=50, callbacks=[early])
+
+----------------------------------------------------------------------------------------------------------------------------------
 
     # program_3
     import tensorflow as tf
@@ -131,12 +127,7 @@
     print(f"Final Loss (SGD): {losses_sgd[-1]}")
     print(f"Final Loss (Momentum): {losses_momentum[-1]}")
     print(f"Final Loss (Adam): {losses_adam[-1]}")
-
-[]
-
-    Final Loss (SGD): 0.24946710467338562
-    Final Loss (Momentum): 0.05912701040506363
-    Final Loss (Adam): 2.4044536985456944e-05
+------------------------------------------------------------------------------------------------------------------
 
     # program_4
     import tensorflow as tf
@@ -188,48 +179,7 @@
     plt.legend()
     plt.grid(True)
     plt.show()
-
-    Model: "sequential_1"
-
-    ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┓
-    ┃ Layer (type)                    ┃ Output Shape           ┃       Param # ┃
-    ┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━┩
-    │ conv2d_2 (Conv2D)               │ (None, 26, 26, 32)     │           320 │
-    ├─────────────────────────────────┼────────────────────────┼───────────────┤
-    │ max_pooling2d_2 (MaxPooling2D)  │ (None, 13, 13, 32)     │             0 │
-    ├─────────────────────────────────┼────────────────────────┼───────────────┤
-    │ conv2d_3 (Conv2D)               │ (None, 11, 11, 64)     │        18,496 │
-    ├─────────────────────────────────┼────────────────────────┼───────────────┤
-    │ max_pooling2d_3 (MaxPooling2D)  │ (None, 5, 5, 64)       │             0 │
-    ├─────────────────────────────────┼────────────────────────┼───────────────┤
-    │ flatten_1 (Flatten)             │ (None, 1600)           │             0 │
-    ├─────────────────────────────────┼────────────────────────┼───────────────┤
-    │ dense_2 (Dense)                 │ (None, 64)             │       102,464 │
-    ├─────────────────────────────────┼────────────────────────┼───────────────┤
-    │ dense_3 (Dense)                 │ (None, 10)             │           650 │
-    └─────────────────────────────────┴────────────────────────┴───────────────┘
-
-     Total params: 121,930 (476.29 KB)
-
-     Trainable params: 121,930 (476.29 KB)
-
-     Non-trainable params: 0 (0.00 B)
-
-    Epoch 1/5
-    844/844 ━━━━━━━━━━━━━━━━━━━━ 26s 29ms/step - accuracy: 0.8573 - loss: 0.4491 - val_accuracy: 0.9837 - val_loss: 0.0572
-    Epoch 2/5
-    844/844 ━━━━━━━━━━━━━━━━━━━━ 40s 29ms/step - accuracy: 0.9821 - loss: 0.0579 - val_accuracy: 0.9822 - val_loss: 0.0603
-    Epoch 3/5
-    844/844 ━━━━━━━━━━━━━━━━━━━━ 25s 29ms/step - accuracy: 0.9869 - loss: 0.0421 - val_accuracy: 0.9888 - val_loss: 0.0398
-    Epoch 4/5
-    844/844 ━━━━━━━━━━━━━━━━━━━━ 24s 29ms/step - accuracy: 0.9915 - loss: 0.0270 - val_accuracy: 0.9905 - val_loss: 0.0337
-    Epoch 5/5
-    844/844 ━━━━━━━━━━━━━━━━━━━━ 24s 29ms/step - accuracy: 0.9927 - loss: 0.0226 - val_accuracy: 0.9897 - val_loss: 0.0351
-    313/313 ━━━━━━━━━━━━━━━━━━━━ 2s 6ms/step - accuracy: 0.9908 - loss: 0.0312
-
-    Test Accuracy: 0.9919
-
-[]
+---------------------------------------------------------------------------------------------------------------------
 
     # program_5
 
@@ -285,40 +235,7 @@
     plot_graph(history,"loss")
     plot_graph(history,"accuracy")
 
-    /usr/local/lib/python3.12/dist-packages/keras/src/layers/core/embedding.py:97: UserWarning: Argument `input_length` is deprecated. Just remove it.
-      warnings.warn(
-
-    Model: "sequential_2"
-
-    ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┓
-    ┃ Layer (type)                    ┃ Output Shape           ┃       Param # ┃
-    ┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━┩
-    │ embedding_2 (Embedding)         │ ?                      │   0 (unbuilt) │
-    ├─────────────────────────────────┼────────────────────────┼───────────────┤
-    │ lstm_2 (LSTM)                   │ ?                      │   0 (unbuilt) │
-    ├─────────────────────────────────┼────────────────────────┼───────────────┤
-    │ dropout_2 (Dropout)             │ ?                      │             0 │
-    ├─────────────────────────────────┼────────────────────────┼───────────────┤
-    │ dense_2 (Dense)                 │ ?                      │   0 (unbuilt) │
-    └─────────────────────────────────┴────────────────────────┴───────────────┘
-
-     Total params: 0 (0.00 B)
-
-     Trainable params: 0 (0.00 B)
-
-     Non-trainable params: 0 (0.00 B)
-
-    313/313 ━━━━━━━━━━━━━━━━━━━━ 54s 163ms/step - accuracy: 0.5228 - loss: 0.6884 - val_accuracy: 0.7116 - val_loss: 0.5861
-    782/782 ━━━━━━━━━━━━━━━━━━━━ 24s 31ms/step - accuracy: 0.7005 - loss: 0.5939
-    Accuracy is 69.92800235748291 %
-
-    /tmp/ipython-input-929217687.py:48: UserWarning: No artists with labels found to put in legend.  Note that artists whose label start with an underscore are ignored when legend() is called with no argument.
-      plt.legend()
-
-[]
-
-[]
-
+----------------------------------------------------------------------------------------------------------------------
     # program_6
 
     import tensorflow as tf
@@ -371,9 +288,7 @@
 
     print(f"Final Loss (Simple RNN): {rnn_loss:.4f}")
     print(f"Final Loss (BiRNN):      {birnn_loss:.4f}")
-
-    Final Loss (Simple RNN): 0.9156
-    Final Loss (BiRNN):      0.1713
+-------------------------------------------------------------------------------------------
 
     # program_7
 
@@ -410,34 +325,7 @@
     print("Predicted reversed:\n", pred[0].squeeze())
     print("True reversed:\n", Y[0].squeeze())
 
-    Epoch 1/10
-    32/32 ━━━━━━━━━━━━━━━━━━━━ 3s 6ms/step - loss: 0.3144
-    Epoch 2/10
-    32/32 ━━━━━━━━━━━━━━━━━━━━ 0s 7ms/step - loss: 0.0778
-    Epoch 3/10
-    32/32 ━━━━━━━━━━━━━━━━━━━━ 0s 7ms/step - loss: 0.0667
-    Epoch 4/10
-    32/32 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - loss: 0.0624
-    Epoch 5/10
-    32/32 ━━━━━━━━━━━━━━━━━━━━ 0s 7ms/step - loss: 0.0581
-    Epoch 6/10
-    32/32 ━━━━━━━━━━━━━━━━━━━━ 0s 7ms/step - loss: 0.0558
-    Epoch 7/10
-    32/32 ━━━━━━━━━━━━━━━━━━━━ 0s 7ms/step - loss: 0.0484
-    Epoch 8/10
-    32/32 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - loss: 0.0409
-    Epoch 9/10
-    32/32 ━━━━━━━━━━━━━━━━━━━━ 0s 7ms/step - loss: 0.0311
-    Epoch 10/10
-    32/32 ━━━━━━━━━━━━━━━━━━━━ 0s 7ms/step - loss: 0.0191
-    1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 303ms/step
-    Input:
-     [0.25137927 0.02234336 0.97365121 0.46417372 0.86355077]
-    Predicted reversed:
-     [0.74918514 0.44530955 0.69750583 0.10939368 0.2764248 ]
-    True reversed:
-     [0.86355077 0.46417372 0.97365121 0.02234336 0.25137927]
-
+--------------------------------------------------------------------------------------------------------
     # program_8
 
     import tensorflow as tf
@@ -510,16 +398,7 @@
     plt.ylabel("MSE Loss")
     plt.grid(True)
     plt.show()
-
-    Downloading data from https://storage.googleapis.com/tensorflow/tf-keras-datasets/mnist.npz
-    11490434/11490434 ━━━━━━━━━━━━━━━━━━━━ 2s 0us/step
-    Epoch 1/5, Reconstruction Loss: 0.1195
-    Epoch 2/5, Reconstruction Loss: 0.0840
-    Epoch 3/5, Reconstruction Loss: 0.0744
-    Epoch 4/5, Reconstruction Loss: 0.0693
-    Epoch 5/5, Reconstruction Loss: 0.0658
-
-[]
+--------------------------------------------------------------------------------------------------
 
     # program_9
     import tensorflow as tf
@@ -568,13 +447,7 @@
         plt.subplot(3, 10, i+21)
         plt.imshow(decoded[i].squeeze(), cmap='gray'); plt.axis('off')
     plt.show()
-
-[]
-
-    235/235 ━━━━━━━━━━━━━━━━━━━━ 188s 791ms/step - loss: 0.2991 - val_loss: 0.0981
-    313/313 ━━━━━━━━━━━━━━━━━━━━ 8s 26ms/step
-
-[]
+------------------------------------------------------------------------------------------------------
 
     # program_10
     import tensorflow as tf
@@ -648,6 +521,4 @@
 
     plt.show()
 
-    Step 0 | D loss: 0.706 | G loss: 0.694
-
-[]
+---------------------------------------------------------------------------------------------------------------------------
