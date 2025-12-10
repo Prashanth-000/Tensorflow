@@ -1,0 +1,157 @@
+# # import tensorflow as tf
+# # import numpy as np
+
+# # # --- Create dataset: each sample is a sequence of 10 increasing numbers ---
+# # X, y = [], []
+# # for _ in range(1000):
+# #     s = np.random.randint(0, 100)
+# #     seq = np.arange(s, s + 10)
+# #     X.append(seq[:-1])   # first 9 numbers as input
+# #     y.append(seq[1:])    # last 9 numbers as target
+
+# # X = np.array(X, dtype=np.float32)[..., None]   # shape = (1000, 9, 1)
+# # y = np.array(y, dtype=np.float32)[..., None]
+
+# # # --- Simple RNN model ---
+# # def simple_rnn():
+# #     m = tf.keras.Sequential([
+# #         tf.keras.layers.SimpleRNN(32, return_sequences=True, input_shape=(9, 1)),
+# #         tf.keras.layers.Dense(1)
+# #     ])
+# #     m.compile(optimizer='adam', loss='mse')
+# #     return m
+
+# # # --- Bidirectional RNN model ---
+# # def birnn():
+# #     m = tf.keras.Sequential([
+# #         tf.keras.layers.Bidirectional(
+# #             tf.keras.layers.SimpleRNN(32, return_sequences=True),
+# #             input_shape=(9, 1)),
+# #         tf.keras.layers.Dense(1)
+# #     ])
+# #     m.compile(optimizer='adam', loss='mse')
+# #     return m
+
+# # # --- Train function (returns final loss) ---
+# # def train(m):
+# #     h = m.fit(X, y, epochs=50, verbose=0)
+# #     return h.history['loss'][-1]
+
+# # # Build → Train → Compare
+# # rnn_loss = train(simple_rnn())
+# # birnn_loss = train(birnn())
+
+# # print("Final Loss (RNN):", rnn_loss)
+# # print("Final Loss (BiRNN):", birnn_loss)
+
+
+
+
+
+# import tensorflow as tf
+# import numpy as np
+
+# X,y = [],[]
+
+# for _ in range(1000):
+#   s  = np.random.randint(0,100)
+#   seq = np.arange(s,s+10)
+#   X.append(seq[:-1])
+#   y.append(seq[1:])
+
+# X = np.array(X,dtype=np.float32)[...,None]
+# y = np.array(y,dtype=np.float32)[...,None]
+
+# def simple_rnn():
+#   m = tf.keras.Sequential([
+#     tf.keras.layers.SimpleRNN(32,return_sequences=True,input_shape=(9,1)),
+#     tf.keras.layers.Dense(1)
+#   ])
+#   m.compile(optimizer='adam',loss='mse')
+#   return m
+
+# def bnn():
+#   m = tf.keras.Sequential([
+#     tf.keras.layers.Bidirectional(
+#       tf.keras.layers.SimpleRNN(32,return_sequences=True),input_shape=(9,1)),
+#       tf.keras.layers.Dense(1)
+
+#   ])
+#   m.compile(optimizer='adam',loss='mse')
+#   return m
+
+# def train(m):
+#   h = m.fit(X,y,epochs=4,verbose=0)
+#   return h.history['loss'][:-1]
+
+# rnn_loss = train(simple_rnn())
+# birnn_loss = train(bnn())
+
+
+# print("Final Loss (RNN):", rnn_loss)
+# print("Final Loss (BiRNN):", birnn_loss)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import tensorflow as tf
+import numpy as np
+
+
+x,y = [],[]
+
+for _ in range(1000):
+  s = np.random.randint(0,100)
+  seq = np.arange(s,s+10)
+  x.append(seq[:-1])
+  y.append(seq[1:])
+
+x = np.array(x,dtype=np.float32)[...,None]
+y = np.array(y,dtype=np.float32)[...,None]
+
+def simple_rnn():
+  m = tf.keras.Sequential([
+    tf.keras.layers.SimpleRNN(32,return_sequences=True,input_shape=(9,1)),
+    tf.keras.layers.Dense(1)
+  ])
+  m.compile(optimizer='adam',loss='mse')
+  return m
+
+def bnn():
+  m = tf.keras.Sequential([
+    tf.keras.layers.Bidirectional(
+      tf.keras.layers.SimpleRNN(32,return_sequences=True),input_shape=(9,1)),
+      tf.keras.layers.Dense(1)
+  ])
+  m.compile(optimizer='adam',loss='mse')
+  return m
+
+def train(m):
+  p = m.fit(x,y,epochs=2,verbose=0)
+  return p.history['loss']
+
+simple_loss = train(simple_rnn())
+bnn_loss = train(bnn())
+
+print("Simple loss would be ",simple_loss)
+print("BNN loss would be",bnn_loss)

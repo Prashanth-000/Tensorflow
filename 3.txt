@@ -1,0 +1,58 @@
+import tensorflow as tf
+import numpy as np
+import matplotlib.pyplot as plt
+from tensorflow import keras
+from keras import models
+from keras.models import Sequential
+from keras import layers
+# XOR Data
+
+x = np.array([[0,0],[0,1],[1,0],[1,1]])
+y = np.array([[0],[1],[1],[0]])
+
+def create_model():
+    return Sequential([
+        layers.Dense(4,activation = 'sigmoid', input_shape=(2,) ),
+        layers.Dense(1,activation= 'sigmoid')
+    ])
+
+
+# Train model for a given optimizer
+
+def train(optimizer, lr=0.1,epochs=5):
+    model = create_model()
+    if optimizer == 'SGD':
+        opt = keras.optimizers.SGD(lr)
+
+    elif optimizer == 'Momentum':
+        opt = keras.optimizers.SGD(lr,momentum=0.9)
+
+    else:
+        opt = keras.optimizers.Adam(lr)
+
+
+    model.compile(optimizer=opt,loss='mse')
+
+    history = model.fit(x,y,epochs = epochs,verbose=0)
+
+    return history.history['loss']
+        
+    
+loss_sgd = train('SGD')
+loss_mom = train('Momentum')
+loss_adam = train('Adam')
+
+
+# Plot
+plt.plot(loss_sgd, label='SGD')
+plt.plot(loss_mom, label='Momentum')
+plt.plot(loss_adam, label='Adam')
+plt.legend()
+plt.xlabel("Epoch")
+plt.ylabel("Loss")
+plt.title("Optimizer Comparison (XOR)")
+plt.show()
+
+print("Final Loss (SGD):", loss_sgd[-1])
+print("Final Loss (Momentum):", loss_mom[-1])
+print("Final Loss (Adam):", loss_adam[-1])

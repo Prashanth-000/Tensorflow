@@ -1,0 +1,43 @@
+import numpy as np
+
+from tensorflow.keras.models import Model
+from tensorflow.keras.layers import Input,LSTM,Dense
+
+import numpy as np
+from tensorflow.keras.models import Model
+from tensorflow.keras.layers import Input, LSTM, Dense
+
+num_samples = 1000
+input_dim = 1
+hidden_size = 32
+timesteps = 5
+
+x= np.random.rand(num_samples, timesteps, input_dim)
+y= np.flip(x, axis=1)
+
+enc_in = Input(shape=(timesteps,input_dim))
+_,h,c = LSTM(hidden_size,return_state=True)(enc_in)
+enc_states = [h,c]
+
+enc_in = Input(shape=(timesteps,input_dim))
+_,h,c= LSTM(hidden_size,return_state=True)(enc_in)
+enc_states = [h,c]
+
+dec_in = Input(shape=(timesteps,input_dim))
+dec_lstm = LSTM(hidden_size,return_sequences=True,return_state = True)
+dec_out = dec_lstm(dec_in,initial_state=enc_states)
+
+dec_in = Input(shape=(timesteps,input_dim))
+dec_lstm = LSTM(hidden_size,return_sequences=True,return_state=True)
+dec_out,= dec_lstm(dec_in,initial_state=enc_states)
+
+
+model = Model([enc_in,dec_in],dec_out)
+model.compile(optimizer="Adam",loss="mse")
+
+model.fit([X,Y],Y,batch_size=30,epochs=1 )
+
+pred = model.predict([X[:-1],Y[:-1]])
+print("Input",X[0])
+print("Predicted",pred[0])
+

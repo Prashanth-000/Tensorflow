@@ -1,0 +1,51 @@
+#2nd program
+import tensorflow as tf
+from tensorflow import keras
+from tensorflow.keras import models, layers
+from tensorflow.keras import regularizers
+import numpy as np
+
+
+(x_train,y_train),(x_test,y_test) = keras.datasets.mnist.load_data()
+x_train, x_test = x_train/255.0, x_test/255.0
+
+x_train = np.clip(x_train + 0.05 * np.random.normal(size = x_train.shape),0,1)
+
+x_train = x_train.reshape(-1,28,28,1)
+x_test = x_test.reshape(-1,28,28,1)
+
+y_train = keras.utils.to_categorical(y_train)
+y_test = keras.utils.to_categorical(y_test)
+
+# y_train= keras.utils.to_categorical(y_train,10)
+# y_test = keras.utils.to_categorical(y_test,10)
+
+
+
+imaging = keras.preprocessing.image.ImageDataGenerator(
+  rotation_range = 10,
+  width_shift_range = 0.1,
+  height_shift_range = 0.1,
+  validation_split = 0.2
+)
+
+train_gen = imaging.flow(x_train,y_train,batch_size = 128, subset="training")
+val_gen = imaging.flow(x_train,y_train,batch_size = 128, subset = "validation")
+
+
+model = models.Sequential([
+  layers.Flatten(input_shape=(28,28)),
+  layers.Dense(256,activation='relu',kernel_regularizer= regularizers.l2(1e-4)),
+  layers.Dropout(0.2),
+  layers.Dense(128,activation='relu',kernel_regularizer= regularizers.l2(1e-4)),
+  layers.Dropout(0.2),
+  layers.Dense(10,activation='softmax')
+])
+
+
+model.compile(optimizer='Adam', loss='categorical_crossentropy', metrics=['accuracy'])
+
+early = keras.callbacks.EarlyStopping(monitor='val_loss', patience = 5)
+history = model.fit(train_gen, validation_data = val_gen, epochs=2, callbacks= [early])
+
+

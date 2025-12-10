@@ -1,0 +1,55 @@
+#10. Generative Adversarial Network (GAN)
+import numpy as np
+import tensorflow as tf
+import matplotlib.pyplot as plt
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense, Reshape, Conv2DTranspose, Conv2D, Flatten, LeakyReLU, Dropout
+
+# 1. Data
+(X, _), _ = tf.keras.datasets.mnist.load_data()
+X = (X.astype("float32") - 127.5) / 127.5
+X = np.expand_dims(X, -1)
+
+# 2. Models
+gen = Sequential([
+    Dense(7*7*128, input_dim=100),
+    LeakyReLU(0.2),
+    Reshape((7,7,128)),
+    Conv2DTranspose(64, (5,5), strides=2, padding="same"),
+    LeakyReLU(0.2),
+    Conv2DTranspose(1, (5,5), strides=2, padding="same", activation="tanh")
+])
+
+disc = Sequential([
+    Conv2D(64, (5,5), strides=2, padding="same", input_shape=[28,28,1]),
+    LeakyReLU(0.2),
+    Dropout(0.3),
+    Conv2D(128, (5,5), strides=2, padding="same"),
+    LeakyReLU(0.2),
+    Dropout(0.3),
+    Flatten(),
+    Dense(1, activation="sigmoid")
+])
+
+# 3. Compile
+disc.compile(loss="binary_crossentropy", optimizer="adam", metrics=["accuracy"])
+disc.trainable = False
+gan = Sequential([gen, disc]) # Connect Generator -> Discriminator
+gan.compile(loss="binary_crossentropy", optimizer="adam")
+
+# 4. Train
+batch_size = 128
+for step in range(3001):
+    noise = np.random.normal(0, 1, (batch_size, 100))
+    fake = gen.predict(noise, verbose=0)
+    real = X[np.random.randint(0, X.shape[0], batch_size)]
+
+    # Train Discriminator (Real vs Fake) then Generator (via GAN)
+    d_loss = disc.train_on_batch(np.concatenate([real, fake]),
+                                 np.concatenate([np.ones((batch_size,1)), np.zeros((batch_size,1))]))
+    g_loss = gan.train_on_batch(noise, np.ones((batch_size,1)))
+
+    if step % 100 == 0:
+        print(f"Step {step} | D loss: {d_loss[0]:.3f} | G loss: {g_loss:.3f}")
+        plt.imshow(fake[0].reshape(28, 28), cmap='gray') # Show generated image
+        plt.show()
